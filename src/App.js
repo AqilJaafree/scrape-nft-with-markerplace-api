@@ -81,7 +81,13 @@ function App() {
     const magicEdenResponse = await fetch(magicEdenUrl, magicEdenOptions);
     const magicEdenData = await magicEdenResponse.json();
     console.log('Magic Eden Data:', magicEdenData);
-
+    
+    // CoinGecko NFT API
+    const coingeckoUrl = 'https://api.coingecko.com/api/v3/nfts/list';
+    const coingeckoResponse = await axios.get(coingeckoUrl);
+    const coingeckoData = coingeckoResponse.data;
+     console.log('CoinGecko Data:', coingeckoData);
+   
     // Store the fetched NFT data in the state
     setNftData({ openSeaData, magicEdenData });
 
