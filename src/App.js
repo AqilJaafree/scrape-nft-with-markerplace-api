@@ -126,14 +126,46 @@ function App() {
           </button>
         </div>
 
-        {/* Display NFT Data */}
         {nftData && (
-          <div>
-            <h2>Search Results</h2>
-            <pre>{JSON.stringify(nftData, null, 2)}</pre>
+  <div>
+    <h2>Search Results</h2>
+    {nftData.openSeaData && nftData.openSeaData.orders.length > 0 ? (
+      <div>
+        {nftData.openSeaData.orders.map((order) => (
+          <div key={order.order_hash}>
+            <h3>Order Details</h3>
+            <p>NFT Name: {order.maker_asset_bundle.assets[0].name}</p>
+            <p>Minted Date: {order.maker_asset_bundle.assets[0].created_date}</p>
+            {/* Display other order details as needed */}
+  
+            {order.maker && (
+              <div>
+                <h3>Maker Details</h3>
+                <p>Ethereum Address: {order.maker.address}</p>
+                {/* Display other maker details as needed */}
+              </div>
+            )}
+  
+            {order.maker_asset_bundle && order.maker_asset_bundle.assets.length > 0 && (
+              <div>
+                <h3>Assets</h3>
+                {order.maker_asset_bundle.assets.map((asset) => (
+                  <div key={asset.token}>
+                    <p>Token: {asset.token}</p>
+                    <img src={asset.image_url} alt={asset.name} />
+                    {/* Display other asset details as needed */}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        
-        )}
+        ))}
+      </div>
+    ) : (
+      <p>No NFTs found</p>
+    )}
+  </div>
+)}
 
       </header>
     </div>
